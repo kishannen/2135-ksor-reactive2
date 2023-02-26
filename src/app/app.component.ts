@@ -1,46 +1,24 @@
 import { Component } from '@angular/core';
-import { of, map, from, filter, range } from 'rxjs';
+import { of, from, filter, range } from 'rxjs';
 
-//of
-const numbers$ = of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-numbers$.subscribe((value) => console.log(value));
+// using range
 
-//map
-numbers$
-  .pipe(map((value) => value * 2))
-  .pipe(filter((value) => value % 2 === 0))
-  .subscribe((value) => console.log(value));
+const numRange = range(1, 10);
+const evenRange = numRange.pipe(filter((value) => value % 2 === 0));
+const oddRange = numRange.pipe(filter((value) => value % 2 !== 0));
+numRange.subscribe((value) => console.log(value));
+evenRange.subscribe((value) => console.log('Even Number: ', value));
+oddRange.subscribe((value) => console.log('Odd Number: ', value));
+evenRange.subscribe((value) => console.log(value, '=>', value * 2));
 
-//from
-const users = [
-  { id: 1, name: 'Alice', age: 25 },
-  { id: 2, name: 'Bob', age: 30 },
-  { id: 3, name: 'Charlie', age: 35 },
-  { id: 4, name: 'Dave', age: 40 },
-  { id: 5, name: 'Dora', age: 45 },
-  { id: 6, name: 'Boots', age: 50 },
-  { id: 7, name: 'Wanwan', age: 22 },
-  { id: 8, name: 'Kisses Shannen', age: 21 },
-];
-const users$ = from(users);
-users$.subscribe((user) => console.log(user));
-
-//filter
-users$
-  .pipe(filter((users) => users.age > 30))
-  .pipe(
-    map((users) => ({
-      id: users.id,
-      name: users.name.toUpperCase(),
-      age: users.age * 2,
-    }))
-  )
-
-  .subscribe((users) => console.log(users));
-
-//range
-const numvalue = range(1, 22);
-numvalue.subscribe((value) => console.log(value));
+// using of
+const numOf = of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+const evenOf = numOf.pipe(filter((value) => value % 2 === 0));
+const oddOf = numOf.pipe(filter((value) => value % 2 !== 0));
+numOf.subscribe((value) => console.log(value));
+evenOf.subscribe((value) => console.log('Even Number: ', value));
+oddOf.subscribe((value) => console.log('Odd Number: ', value));
+evenOf.subscribe((value) => console.log(value, '=>', value * 2));
 
 @Component({
   selector: 'my-app',
