@@ -20,6 +20,15 @@ evenOf.subscribe((value) => console.log('Even Number: ', value));
 oddOf.subscribe((value) => console.log('Odd Number: ', value));
 evenOf.subscribe((value) => console.log(value, '=>', value * 2));
 
+// using from
+const numFrom = from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+const evenFrom = numFrom.pipe(filter((value) => value % 2 === 0));
+const oddFrom = numFrom.pipe(filter((value) => value % 2 !== 0));
+numFrom.subscribe((value) => console.log(value));
+evenFrom.subscribe((value) => console.log('From: Even Number: ', value));
+oddFrom.subscribe((value) => console.log('From: Odd Number: ', value));
+evenFrom.subscribe((value) => console.log(value, '=>', value * 2));
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
